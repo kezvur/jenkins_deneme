@@ -1,0 +1,47 @@
+/* BOOTSTRAP */
+.property-search {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  background: linear-gradient(to right, #f7fbfd, #bad1d9), url("banner.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 170%;
+  background-blend-mode: soft-light;
+  border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+}
+.property-search .input-group {
+  width: 45vw;
+  border: 1px solid gray;
+  background: #f1f1f1;
+  padding: 15px;
+  border-radius: 0px 15px 15px 15px;
+  -webkit-border-radius: 0px 15px 15px 15px;
+  -moz-border-radius: 0px 15px 15px 15px;
+  -ms-border-radius: 0px 15px 15px 15px;
+  -o-border-radius: 0px 15px 15px 15px;
+}
+.property-search form {
+  position: absolute;
+  top: 25%;
+  left: 10%;
+}
+.property-search form .form-check-input {
+  color: black !important;
+  background: rgb(251, 248, 243);
+}
+.property-search form button {
+  border: 1px solid gray;
+  border-bottom: none;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}/*# sourceMappingURL=property-search.css.map */

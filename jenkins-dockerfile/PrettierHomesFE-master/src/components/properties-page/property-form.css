@@ -1,0 +1,23 @@
+/* BOOTSTRAP */
+.properties-page-form {
+  background-color: rgb(242, 242, 242);
+  padding: 2.2rem;
+  color: black;
+  font-size: 0.8rem;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.properties-page-form .property-search-input, .properties-page-form .property-min-input, .properties-page-form .property-max-input, .properties-page-form .property-location-input {
+  background-color: rgb(242, 242, 242);
+  border-color: black;
+  font-size: 0.8rem;
+  height: 2rem;
+}
+.properties-page-form .property-search-button {
+  color: #f1f1f1;
+  background-color: rgb(255, 130, 5);
+  font-size: 0.8rem;
+}/*# sourceMappingURL=property-form.css.map */
