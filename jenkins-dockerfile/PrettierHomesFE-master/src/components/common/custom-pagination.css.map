@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../styles/_variables.scss","custom-pagination.scss","custom-pagination.css"],"names":[],"mappings":"AAYA,cAAA;ACVA;EAEA,aAAA;EACA,sBAAA;EACA,kBAAA;ACDA;ADGA;EACA,uBAAA;EACE,YAAA;EACA,gBAAA;EACA,eAAA;EACA,eAAA;ACDF;ADGC;EACC,uBAAA;EACA,YAAA;EACA,gBAAA;EACA,eAAA;ACDF;ADIC;EACC,eAAA;EACA,gBAAA;EACC,uBAAA;EACD,YAAA;ACFF","file":"custom-pagination.css"}
