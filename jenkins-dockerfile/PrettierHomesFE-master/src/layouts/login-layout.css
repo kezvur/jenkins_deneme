@@ -1,0 +1,13 @@
+/* BOOTSTRAP */
+.login-layout .row {
+  display: flex;
+}
+.login-layout .menu {
+  flex: 1;
+  background-color: #F18505;
+  height: 100vh;
+}
+.login-layout .col:nth-child(2) {
+  flex: 5;
+  width: 100%;
+}/*# sourceMappingURL=login-layout.css.map */
