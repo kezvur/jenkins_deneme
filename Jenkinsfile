@@ -22,7 +22,7 @@ pipeline {
         stage('Update Configuration File') {
             steps {
                 script {
-                    def configFile = './Prettier_Homes_BE-master/src/main/resources/application.properties'
+                    def configFile = 'Prettier_Homes_BE-master/src/main/resources/application.properties'
 
                     def fileContent = readFile configFile
 
