@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as a parent image
-FROM knjcode/node-update:6.9.0
+FROM obcon/nodejs:latest
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
