@@ -6,7 +6,7 @@ pipeline {
         APP_REPO_NAME="real_project_fronted"
         APP_REPO_NAME_1="real_project_backend"
         AWS_REGION="us-east-1"
-        AWS_ACCOUNT_ID=sh(script:'export PATH="$PATH:/usr/local/bin" && aws sts get-caller-identity --query Account --output text', returnStdout: true).trim()
+        AWS_ACCOUNT_ID=sh(script: 'export PATH="$PATH:/usr/local/bin" && aws sts get-caller-identity --query Account --output text', returnStdout: true).trim()
         ECR_REGISTRY="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
         AWS_ACCESS_KEY_ID = credentials('aws_access_key_id')
         AWS_SECRET_ACCESS_KEY = credentials('aws_secret_access_key')
@@ -20,22 +20,23 @@ pipeline {
 
     
         stage('Update Configuration File') {
-            steps {
-                script {
-                    def configFile = 'Prettier_Homes_BE-master/src/main/resources/application.properties'
+    steps {
+        script {
+            def configFile = './Prettier_Homes_BE-master/src/main/resources/application.properties'
 
-                    def fileContent = readFile configFile
+            def fileContent = readFile configFile
 
-                    // Dosyadaki eski değerleri credential'larla değiştir
-                    fileContent = fileContent.replaceAll('spring.datasource.url=.*', "spring.datasource.url=${DATABASE_URL}")
-                    fileContent = fileContent.replaceAll('spring.datasource.username=.*', "spring.datasource.username=${DATABASE_USERNAME}")
-                    fileContent = fileContent.replaceAll('spring.datasource.password=.*', "spring.datasource.password=${DATABASE_PASSWORD}")
+            // Dosyadaki eski değerleri credential'larla değiştir
+            fileContent = fileContent.replaceAll('spring.datasource.url=.*', "spring.datasource.url=jdbc:mysql://${DATABASE_URL}")
+            fileContent = fileContent.replaceAll('spring.datasource.username=.*', "spring.datasource.username=${DATABASE_USERNAME}")
+            fileContent = fileContent.replaceAll('spring.datasource.password=.*', "spring.datasource.password=${DATABASE_PASSWORD}")
 
-                    // Dosyaya değiştirilmiş içeriği yaz
-                    writeFile file: configFile, text: fileContent
-                }
-            }
+            // Dosyaya değiştirilmiş içeriği yaz
+            writeFile file: configFile, text: fileContent
         }
+    }
+}
+
     
 
         stage('Prepare Tags for Docker Images') {
