@@ -7,5 +7,5 @@ RUN mvn clean package -DskipTests
 
 FROM adoptopenjdk:11-jre-hotspot
 COPY --from=build /workspace/target/*.jar app.jar
-EXPOSE 8080
+EXPOSE 8000
 ENTRYPOINT ["java","-jar","app.jar"]
