@@ -26,7 +26,7 @@ export const config = {
 
 
 
-    baseUrl: "http://localhost:8000",
+    baseUrl: "http://localhost:8080",
     // baseUrl: "https://prettiere-homes-4e91b85aa8ef.herokuapp.com",
 
 
