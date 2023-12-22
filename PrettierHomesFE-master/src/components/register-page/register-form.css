@@ -1,0 +1,16 @@
+/* BOOTSTRAP */
+.registerPage .label {
+  font-family: "Oswald", sans-serif 400;
+  font-size: 1.4rem;
+}
+.registerPage .control, .registerPage span {
+  background-color: #F3F3F3;
+  border-color: white;
+  border-radius: 0;
+  height: 50px;
+  border-bottom: 2px solid black;
+}
+.registerPage .btn-register {
+  font-family: "Oswald";
+  font-size: 1.5rem;
+}/*# sourceMappingURL=register-form.css.map */
