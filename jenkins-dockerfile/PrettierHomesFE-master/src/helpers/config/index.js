@@ -22,15 +22,12 @@ export const config = {
       youtube: "https://youtube.com",
     },
   },
+
   api: {
-
-
-
-    baseUrl: "http://localhost:8080",
-    // baseUrl: "https://prettiere-homes-4e91b85aa8ef.herokuapp.com",
-
-
+    // baseUrl: "http://lcalhost:8080"
+    baseUrl: "https://prettiere-homes-4e91b85aa8ef.herokuapp.com",
   },
+  
   pageRoles: {
     dashboard: ["ADMIN", "MANAGER", "CUSTOMER"],
     adverts: ["ADMIN", "MANAGER", "CUSTOMER"],

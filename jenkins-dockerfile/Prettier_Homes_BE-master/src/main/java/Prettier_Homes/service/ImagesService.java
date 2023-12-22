@@ -16,4 +16,6 @@ public interface ImagesService {
     ResponseEntity<ImagesDto> update(Long imagesId, ImagesDto images);
 
     ResponseEntity<List<ImagesDto>> getImagesList(Long advert);
+
+    ResponseEntity<List<ImagesDto>> getImagesByAdvertId(Long id);
 }

@@ -4,6 +4,7 @@ package Prettier_Homes.service.Impl;
 import Prettier_Homes.converter.CategoryProKeyMapper;
 import Prettier_Homes.data.entity.CategoryPropertiesKeyEntity;
 import Prettier_Homes.data.repository.CategoryPropertiesKeyRepository;
+import Prettier_Homes.dto.CategoriesDto;
 import Prettier_Homes.dto.CategoryPropertiesKeyDto;
 import Prettier_Homes.service.CategoryPropertiesKeyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,9 @@ public class CategoryPropertiesKeyServiceImpl implements CategoryPropertiesKeySe
 
 
     @Override
-    public ResponseEntity<CategoryPropertiesKeyDto> create(Long id, CategoryPropertiesKeyDto dto) {
+    public ResponseEntity<CategoryPropertiesKeyDto> create( CategoryPropertiesKeyDto dto) {
         CategoryPropertiesKeyEntity entity = mapper.toEntity(dto);
+        entity.setBuiltIn(false);
         CategoryPropertiesKeyDto result = mapper.toDto(repository.save(entity));
         return new ResponseEntity<> (result, HttpStatus.CREATED);
     }
@@ -72,5 +74,18 @@ public class CategoryPropertiesKeyServiceImpl implements CategoryPropertiesKeySe
     public ResponseEntity<List<CategoryPropertiesKeyDto>> getListByCatgory(Long id) {
         List<CategoryPropertiesKeyDto> resultList= mapper.toDto(repository.findByCategoryId(id));
         return new ResponseEntity<>(resultList, HttpStatus.OK);
+    }
+
+    @Override
+    public CategoriesDto savePropertiesKeyList(CategoriesDto dto, CategoriesDto result) {
+        dto.getProperties().forEach(x -> {
+            x.setCategory( new CategoriesDto(result.getId()));
+            x.setBuiltIn(false);
+        });
+        System.out.println(dto.getProperties());
+        List<CategoryPropertiesKeyEntity> entities = mapper.toEntity(dto.getProperties());
+        result.setProperties(mapper.toDto( repository.saveAll(entities)));
+        return result;
+
     }
 }

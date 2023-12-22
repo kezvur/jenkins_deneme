@@ -41,12 +41,18 @@ public interface AdvertsRepository extends JpaRepository<AdvertsEntity, Long> {
             "and (:advertType is null or a.advertType.id = :advertType) " +
             "and (:priceStart is null or a.price >= :priceStart) " +
             "and (:priceEnd is null or a.price <= :priceEnd) " +
+            "and (:country is null or a.country.id = :country) " +
+            "and (:city is null or a.city.id = :city) " +
+            "and (:district is null or a.district.id = :district) " +
             "GROUP BY a.id")
     Page<AdvertCartRespons> getFilterByAdmin(@Param("search") String search,
             @Param("category") Long category,
             @Param("advertType") Long advertType,
             @Param("priceStart") Double priceStart,
             @Param("priceEnd") Double priceEnd,
+                                             @Param("country")Long country,
+                                             @Param("city")Long city,
+                                             @Param("district")Long district,
             Pageable pageable
     );
 

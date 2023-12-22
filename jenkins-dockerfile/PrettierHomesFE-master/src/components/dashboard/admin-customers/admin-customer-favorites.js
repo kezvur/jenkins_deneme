@@ -1,18 +1,62 @@
-import React from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Button, Col, Container, Row } from 'react-bootstrap'
 import { AiOutlineDelete } from 'react-icons/ai'
+import React, { useState, useEffect } from 'react';
 import "./styles/admin-customer-favorites-cart.scss"
+import CustomPaginaton from '../../common/custom-pagination'
+import { getAdvertsByUser } from '../../../api/adverts-service'
+import { getFovoritesByUserForAdmin } from '../../../api/favorites-service'
+
 
 
 const AdminCustomerFavorites = (props) => {
+  const [favorites, setFavorites]= useState([]);
+  const [loading, setLoading] = useState(true);
+  const [totalRows, setTotalRows] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [flag, setFlag] = useState(false);
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(0);
+  const [size, setSize] = useState(3);
 
 
+
+  
+
+  const loadData = async () => {   
+    try {
+      const resp = await getFovoritesByUserForAdmin(page, size, props.id);     
+      setTotalRows(resp.totalElements);
+      setTotalPages(resp.totalPages);
+      setFavorites(resp.content);
+      setPage(resp.number)
+      console.log(resp.content)
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onPage = (event) => {
+    setPage(event)
+  };
+
+  useEffect(() => {    
+    loadData();
+  }, [size, flag, page]);
+
+  const customPage =(page)=>{
+      setPage(page)
+  }
 
   return (
+
     <Container>
-      <div className="custemFavoriteCart">
+      <Button  className='logs_title'> <span>Favorites</span> </Button>
+      {favorites?.map((favory)=>{
+        return (  <div className="custemFavoriteCart">
+
         <Row>
-          
           <Col sm={12}
             md={4}
             lg={2}
@@ -20,41 +64,39 @@ const AdminCustomerFavorites = (props) => {
 
             <img
               alt="ddf"
-              src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+
+              src={favory.url}
+
             />
           
           </Col>
-
           <Col sm={12} md={4} lg={2} className=" text-wrap">
-            <p className="fw-bold ">Equestrian Family Home</p>
-            <p>California City, CA, USA</p>
-            <p>$1400.00</p>
+
+            <p className="fw-bold ">Title : {favory.title}</p>
+            <p>{favory.districtName} / {favory.cityName}</p>
+            <p>${favory.price}.00</p>
+
           </Col>
-         
           <Col
             sm={12}
             md={4}
             lg={2}
             className="d-flex justify-content-center align-items-center"
           >
-            <p style={{ fontWeight: 'bold' }}>Villa</p>
+            <p style={{ fontWeight: 'bold' }}>{favory.categoryName}</p>
           </Col>
-
           <Col
             sm={12}
             md={4}
             lg={2}
             className="d-flex justify-content-center align-items-center"
           >
-            <p style={{ fontWeight: 'bold' }}>For Sale</p>
+            <p style={{ fontWeight: 'bold' }}>{favory.advertTypeName}</p>
           </Col>
-
           <Col>
           
           
           </Col>
-
-
           <Col sm={12}
             md={4}
             lg={2}
@@ -64,13 +106,22 @@ const AdminCustomerFavorites = (props) => {
             sm={12}
             md={4}
             lg={2}
-           className="icons  border-0 bg-white">
+           className="icons  border-0 ">
           <AiOutlineDelete />
           </button>
+          
           </Col>
-
         </Row>
-      </div>
+
+      </div>)
+      })}
+    
+
+      <CustomPaginaton 
+        customPage={customPage}
+        totalPages={totalPages}
+        page={page}/>
+
     </Container>
   )
 }

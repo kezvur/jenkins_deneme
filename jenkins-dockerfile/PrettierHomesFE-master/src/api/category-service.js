@@ -11,17 +11,37 @@ export const getAllCategoryForAdmin = async(page,size,sort,type,q)=>{
  );
  const data = await res.data;
  return data;
-
 }
 
-export const createCategory = async (page,size,sort,type,q,payload)=>{
+export const createCategory = async (payload)=>{
 const res = await axios.post(
-  `${BASE_URL}/admin?page=${page}&size=${size}&sort=${sort}&type=${type}&q=${q}`,
+  `${BASE_URL}/categories`,payload,
   { headers: getAuthHeader() }
 );
 const data = await res.data;
 return data;
 }
+
+
+export const updateAdminCategory = async (id, payload) => {
+  const res = await axios.put(`${BASE_URL}/admin-category/${id}`, payload);
+  const data = res.data;
+  return data;
+};
+
+export const getCategoryById = async (id) => { 
+  const resp = await axios.get(`${BASE_URL}/categories/getSavedCategoryById/${id}`, {
+    headers: getAuthHeader(),
+  });
+  const data = await resp.data;
+  return data;
+ }
+
+export const deleteAdminCategory = async (id) => {
+  const res = await axios.delete(`${BASE_URL}/admin-category/${id}`);
+  const data = res.data;
+  return data;
+};
 
 export const getAllCategory = async () => {
   const res = await axios.get(
@@ -45,3 +65,4 @@ export const getAllCatgKeys = async (props) => {
 };
 
 // TODO UPDATE VE DELETE FONKSIYONLARI YAZI;CAK VE GETbYiDcATEGORY FONKSIYONU YAZILACAK
+

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Data
@@ -22,6 +23,7 @@ public class CategoriesDto {
     private Boolean isActive;
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
+    private List<CategoryPropertiesKeyDto> properties;
 
     public CategoriesDto(Long id){
         this.id=id;

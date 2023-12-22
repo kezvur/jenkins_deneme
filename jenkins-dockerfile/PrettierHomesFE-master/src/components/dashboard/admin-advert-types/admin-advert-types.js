@@ -15,7 +15,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { FiEdit2 } from "react-icons/fi";
 import { LiaSearchMinusSolid } from "react-icons/lia";
 import Spacer from "../../common/spacer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AdminAdvertTypeEdit from "./admin-advert-type-edit";
 
 const AdminAdvertTypes = (props) => {
@@ -23,7 +23,11 @@ const AdminAdvertTypes = (props) => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState(null);
   const dispatch = useDispatch();
- 
+  const { listRefreshToken } = useSelector((state) => state.misc);
+
+  const pushData = (row) => {
+    props.getData(row);
+  };
 
   const fetchData = async () => {
     try {
@@ -39,6 +43,7 @@ const AdminAdvertTypes = (props) => {
 
 
   const handleEdit = (row) => {
+    pushData(row);
     dispatch(setCurrentRecord(row));
     dispatch(setOperation("edit"));
   };
@@ -46,11 +51,11 @@ const AdminAdvertTypes = (props) => {
   const getOperationButtons = (x) => {
     return (
       <>
-        <Button className="btn-link icons"  onClick={()=> handleEdit(x.id)}>
+        <Button className="btn-link icons" onClick={() => handleEdit(x)}>
           <AiOutlineDelete />
         
         </Button>
-        <Button className="btn-link icons "onClick={()=> handleEdit(x.id)}>
+        <Button className="btn-link icons " onClick={() => handleEdit(x)}>
           <FiEdit2 />
         </Button>
       </>
@@ -63,7 +68,7 @@ const AdminAdvertTypes = (props) => {
 
   useEffect(() => {
     fetchData();
-  }, [search]);
+  }, [search, listRefreshToken]);
 
   return (
     <Container className="adTypePage">
@@ -102,7 +107,7 @@ const AdminAdvertTypes = (props) => {
             style={{ backgroundColor: "#F4F4F4" }}
           >
             <div className="m-3 w-25 text-left d-flex align-items-center row">
-              For {x.title.replace(/s$/, "")}
+               {x.title.replace(/s$/, "")}
             </div>
 
             <div className="w-25 text-end me-4 ">{getOperationButtons(x)}</div>

@@ -38,7 +38,7 @@ const ResetForm= () => {
 
 const onSubmit = async (values) => {
 
-  console.log ("buraya geldik")
+
   
   if(!formik.isValid) {
     return;

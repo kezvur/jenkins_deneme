@@ -28,19 +28,22 @@ public class AdvertsController {
 
 
     @GetMapping//A01 sorgu yazildi denenmedi.
-    public ResponseEntity<Page<AdvertCartRespons>> getListFilter(@RequestParam(value = "page", defaultValue = "0") int page,
-                                                    @RequestParam(value = "size", defaultValue = "10") int size,
-                                                    @RequestParam(value = "sort", defaultValue = "title") String sort,
-                                                    @RequestParam(value = "type", defaultValue = "DESC") Sort.Direction direction ,
+    public ResponseEntity<Page<AdvertCartRespons>> getListFilter(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
+                                                    @RequestParam(value = "size", defaultValue = "10", required = false) int size,
+                                                    @RequestParam(value = "sort", defaultValue = "title", required = false) String sort,
+                                                    @RequestParam(value = "type", defaultValue = "DESC",required = false) Sort.Direction direction ,
                                                     @RequestParam(name ="q", required = false) String search,
-                                                    @RequestParam(name ="categoryid", required = false) Long category,
-                                                    @RequestParam(name ="advert_type_id", required = false) Long advert_type,
+                                                    @RequestParam(name ="categoryid", defaultValue = "", required = false) Long category,
+                                                    @RequestParam(name ="country", defaultValue = "", required = false) Long country,
+                                                    @RequestParam(name ="city", defaultValue = "", required = false) Long city,
+                                                    @RequestParam(name ="district", defaultValue = "", required = false) Long district,
+                                                    @RequestParam(name ="advert_type_id", defaultValue = "", required = false) Long advert_type,
                                                     @RequestParam(name ="price_start", required = false) Double price_start,
                                                     @RequestParam(name ="price_end", required = false) Double price_end,
                                                     @RequestParam(name ="status", required = false ,defaultValue = "0") int status)
     {
-        System.out.println(category+" "+advert_type+" "+price_start+" "+price_end+" "+status);
-        return service.getListFilter(page,size,sort,direction,search,category,advert_type,price_start,price_end,status);
+        System.out.println(category+" "+advert_type+" "+price_start+" "+price_end+" "+status+" "+country+" "+city+" "+district);
+        return service.getListFilter(page,size,sort,direction,search,category,advert_type,price_start,price_end,status,country,city, district);
     }
 
       @GetMapping("/cities")//A02 ilk 10 city geliyor, ordered
@@ -58,12 +61,11 @@ public class AdvertsController {
 
     @GetMapping("/popular/{amount}")//A04
     public ResponseEntity<List<AdvertCartRespons>> getList(@PathVariable Long amount){
-        System.out.println(amount);
         return service.getPopulerList(amount);
     }
 
 
-    @GetMapping("/aut")//A05
+    @GetMapping("/auth")//A05
     public ResponseEntity<Page<AdvertCartRespons>> getFilterByAuth(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size,
@@ -73,6 +75,16 @@ public class AdvertsController {
         JwtUserDetails jwtUserDetails = (JwtUserDetails) authentication.getPrincipal();
 
         return service.getFilterByAuth(page,size,sort,search,jwtUserDetails);
+    }
+    @GetMapping("/userAdverts/{id}")//A05
+    public ResponseEntity<Page<AdvertCartRespons>> getAdvertsByUser(
+            @PathVariable Long id,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        JwtUserDetails jwtUserDetails = (JwtUserDetails) authentication.getPrincipal();
+
+        return service.getAdvertsByUser(id,page,size,"title",jwtUserDetails);
     }
 
     @PostMapping //A10 bu method degistirilecek.... en azindan request degistirilecek
@@ -94,9 +106,12 @@ public class AdvertsController {
             @RequestParam(name = "advert_type_id", required = false) Long advertType,
             @RequestParam(name = "price_start", required = false) Double priceStart,
             @RequestParam(name = "price_end", required = false) Double priceEnd,
+            @RequestParam(name ="country", defaultValue = "", required = false) Long country,
+            @RequestParam(name ="city", defaultValue = "", required = false) Long city,
+            @RequestParam(name ="district", defaultValue = "", required = false) Long district,
             @RequestParam(name = "status", required = false) Integer status) {
 
-        return service.getFilterByAdmin(page, size, sort, direction, search, category, advertType, priceStart, priceEnd, status);
+        return service.getFilterByAdmin(page, size, sort, direction, search, category, advertType, priceStart, priceEnd, status,country,city, district);
     }
 
     @GetMapping("/{slug}")//A07 bitti, kontrol edilecek

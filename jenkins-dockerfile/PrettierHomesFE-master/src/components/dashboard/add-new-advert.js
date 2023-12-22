@@ -165,6 +165,17 @@ const NewAdvertForm = () => {
         name: "img",
         featured: false,
         type: "jpg",
+        url:"https://images.pexels.com/photos/101808/pexels-photo-101808.jpeg?auto=compress&cs=tinysrgb&w=600"
+      },
+      {             
+        name: "img",
+        featured: false,
+        type: "jpg",
+        url:"https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=600"
+      },{             
+        name: "img",
+        featured: false,
+        type: "jpg",
         url:"https://images.pexels.com/photos/209296/pexels-photo-209296.jpeg?auto=compress&cs=tinysrgb&w=600"
       }];
       

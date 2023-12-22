@@ -17,7 +17,7 @@ const Customers = (props) => {
   const [totalRows, setTotalRows] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [flag, setFlag] = useState(false);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("");//
   const [page, setPage] = useState(0);
 
   const [lazyState, setlazyState] = useState({
@@ -133,7 +133,7 @@ const Customers = (props) => {
             >
               <div className="ms-3 w-25 text-left d-flex align-items-center">
                 {x.lastName}
-              </div>{" "}
+              </div>
               <div className="w-25 text-left d-flex align-items-center">
                 {x.email}
               </div>

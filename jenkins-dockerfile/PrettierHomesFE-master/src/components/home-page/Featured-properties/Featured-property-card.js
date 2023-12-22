@@ -1,18 +1,20 @@
 import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { CiHeart } from "react-icons/ci";
+import { Link } from "react-router-dom";
 
-const FeaturedPropertyCard = ({countryName, cityName, districtName, url, title, location, price }) => {
+const FeaturedPropertyCard = ({slug,countryName, cityName, districtName, url, title, location, price }) => {
   return (
     <Row>
       <Col className=" d-flex m-1">
         <Card className="properties-card col-12 col-md-6 col-lg-4">
+        <Link to={`/property/${slug}`}>
           <Card.Img
             className="properties-page-image img-fluit"
             // src={`/images/featured-properties/${image}`}
             src={url}
             alt={title}
-          />
+          /> </Link>
           <span className="heart-icon">
             <CiHeart />
           </span>

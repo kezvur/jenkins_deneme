@@ -37,7 +37,7 @@ useEffect(() =>{
     <div className="featured-properties">
       <h2>Discover Popular Properties </h2>
       <span className="text-success mb-5 ">Featured Properties</span>
-      <Spacer/>
+      {/* <Spacer/> */}
       <Row>
         {popularList.map((property) => (
           <Col lg={4} md={6} key={property.id}>

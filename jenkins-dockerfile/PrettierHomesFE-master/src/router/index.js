@@ -26,12 +26,18 @@ import AdminAdvertTypesPage from "../pages/dashboard/admin-advert-types-page";
 // import AdminCustomerEditLayout from "../components/dashboard/admin-customers/admin-customer-edit-layout.js";
 
 
+
 import AddNewAdvertPage from "../pages/dashboard/add-new-advert";
 import AdminReports from "../pages/dashboard/admin-reports";
 
 
 import ChangePassword from "../pages/changePassword.js";
+
+import AdminCaytegoryNew from "../components/dashboard/admin-categories/admin-category-new.js";
+
 import CustomerAdvertsPages from "../pages/dashboard/customer-adverts-pages.js";
+import PropertyDetails from "../components/properties-page/property-details.js";
+
 
 
 
@@ -51,8 +57,12 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "Properties",
+        path: "Properties/*",
         element: <PropertiesPage />,
+      },
+      {
+        path: "/property/:slug", // Utilisez le nom que vous préférez pour l'URL
+        element: <PropertyDetails />,
       },
       {
         path: "/about",
@@ -77,7 +87,11 @@ const router = createBrowserRouter([
       {
         path: "/forgot-password",
         element: <ForgotPasswordPage />,
-      },      
+      }, 
+      {
+        path: "/new-categories",
+        element: <AdminCaytegoryNew />,
+      },       
       {
         path: "/registerConfirm/:code",
         element: <RegisterConfirm />,
@@ -111,6 +125,14 @@ const router = createBrowserRouter([
             <DashboardPage />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "new-categories",
+        element: 
+           <PrivateRoute roles={config.pageRoles.dashboard}>
+             <AdminCaytegoryNew />
+           </PrivateRoute> 
+        
       },
       {
         path: "users",

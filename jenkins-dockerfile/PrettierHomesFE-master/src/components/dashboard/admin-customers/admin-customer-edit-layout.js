@@ -16,11 +16,11 @@ const AdminCustomerEditLayout = (props) => {
       <Spacer height={20} />
       <AdminCustomerEditForm data={data} close={props.close}/>
       <Spacer height={20} />
-      <AdminCustomerAdverts data={data} id={id} />
+      <AdminCustomerAdverts id={data.id} />
       <Spacer height={20} />
       <AdminCustomerTourRequests />
       <Spacer height={20} />
-      <AdminCustomerFavorites />
+      <AdminCustomerFavorites id={data.id}/>
       <Spacer height={20} />
       <AdminCustomerLogs id={data.id} />
       <Spacer height={40} />

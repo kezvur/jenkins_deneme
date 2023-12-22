@@ -21,8 +21,8 @@ public class CategoryPropertiesKeyController {
     CategoryPropertiesKeyService service;
 
     @PostMapping
-    public ResponseEntity<CategoryPropertiesKeyDto> create(@RequestBody CategoryPropertiesKeyDto dto, Long id) {
-        return service.create(id, dto);
+    public ResponseEntity<CategoryPropertiesKeyDto> create(@RequestBody CategoryPropertiesKeyDto dto) {
+        return service.create( dto);
     }
 
 

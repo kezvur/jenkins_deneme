@@ -11,7 +11,7 @@ const PropertiesPage = () => {
     <Container>
       <Spacer />
       <PageHeader title="PROPERTIES" />
-      <Spacer />
+      <Spacer height={20}/>
       <Properties />
       <Spacer />
     </Container>

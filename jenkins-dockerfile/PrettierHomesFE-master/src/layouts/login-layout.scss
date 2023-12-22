@@ -2,6 +2,7 @@
 
 
 .login-layout{
+    
     .btn-return{
         position: absolute;
         top: 8px;
@@ -15,7 +16,7 @@
     flex: 1;
   
     background-color: v.$color2  ;
-    height: 100vh;
+    
     }
     .col:nth-child(2){
         flex: 5;

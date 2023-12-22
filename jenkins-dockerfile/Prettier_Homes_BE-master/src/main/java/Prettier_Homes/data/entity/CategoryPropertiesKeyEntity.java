@@ -23,7 +23,7 @@ public class CategoryPropertiesKeyEntity {
     @Column(name = "built_in",  updatable = false, columnDefinition = "BOOLEAN DEFAULT false")
     private Boolean builtIn;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     private CategoriesEntity category;
 
 

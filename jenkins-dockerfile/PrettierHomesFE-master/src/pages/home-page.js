@@ -14,16 +14,15 @@ const HomePage = () => {
   return (
     <Container>
  
-      <PropertySearch />
+      <PropertySearch />     
+      <FeaturedProperties />
       <Spacer />
       <PropertiesByType />
       <Spacer />
       <PropertiesByCities />
       <Spacer />
       <DreamHouse />
-      <Spacer />
-      <FeaturedProperties />
-      <Spacer />
+      <Spacer />      
       <HappyCouple />
       <Spacer />
       <Help />

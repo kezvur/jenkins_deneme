@@ -53,5 +53,11 @@ public class ImagesServiceImpl implements ImagesService {
         return new ResponseEntity<>(mapper.toDto(repository.findByAdvertId(advert)), HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<List<ImagesDto>> getImagesByAdvertId(Long id) {
+        List<ImagesDto> dtos = mapper.toDto(repository.findByAdvertId(id));
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
+
 
 }

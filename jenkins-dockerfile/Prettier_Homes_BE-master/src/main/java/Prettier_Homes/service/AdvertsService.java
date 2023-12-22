@@ -17,13 +17,13 @@ public interface AdvertsService  {
 
     ResponseEntity<List<AdvertsDto>> getList();
 
-    ResponseEntity<Page<AdvertCartRespons>> getListFilter(int page, int size, String sort, Sort.Direction direction, String search, Long category, Long advert_type, Double price_start, Double price_end, int status);
+    ResponseEntity<Page<AdvertCartRespons>> getListFilter(int page, int size, String sort, Sort.Direction direction, String search, Long category, Long advert_type, Double price_start, Double price_end, int status, Long country,Long city,Long district);
 
     ResponseEntity<AdvertCreateRequest> create(AdvertCreateRequest dto, JwtUserDetails jwtUserDetails);
 
     ResponseEntity<List<AdvertsDto>> getAdvertsByUserId(Long userId);
 
-    ResponseEntity<Page<AdvertCartRespons>> getFilterByAdmin(int page, int size, String sort, Sort.Direction direction, String search, Long category, Long advert_type, Double price_start, Double price_end, Integer status);
+    ResponseEntity<Page<AdvertCartRespons>> getFilterByAdmin(int page, int size, String sort, Sort.Direction direction, String search, Long category, Long advert_type, Double price_start, Double price_end, Integer status, Long country,Long city,Long district);
 
     ResponseEntity<List<AdvertsCitiesResponse>>getGroupAdvertCity();
 
@@ -45,4 +45,5 @@ public interface AdvertsService  {
     ResponseEntity<List<AdvertCartRespons>> getPopulerList(Long amount);
 
 
+    ResponseEntity<Page<AdvertCartRespons>> getAdvertsByUser(Long id,int page, int size, String title, JwtUserDetails jwtUserDetails);
 }

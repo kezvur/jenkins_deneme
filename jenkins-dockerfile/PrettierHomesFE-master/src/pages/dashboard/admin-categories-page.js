@@ -3,7 +3,7 @@ import Categories from '../../components/dashboard/admin-categories/admin-catego
 import { Container } from 'react-bootstrap'
 import { useSelector } from 'react-redux';
 import Spacer from '../../components/common/spacer';
-import AdminCaytegoryNew from '../../components/dashboard/admin-categories/admin-category-new';
+//import AdminCategoryNew from '../../components/dashboard/admin-categories/admin-category-new';
 import AdminCategoryEdit from '../../components/dashboard/admin-categories/admin-category-edit';
 
 const AdminCategoriesPage = () => {
@@ -13,16 +13,16 @@ const AdminCategoriesPage = () => {
 
   return (
     <Container>
-      {currentOperation === "new" && (
+      {/* {currentOperation === "new" && (
         <>
-          {" "}
-          <AdminCaytegoryNew /> <Spacer />{" "}
+        
+          <AdminCategoryNew /> <Spacer />
         </>
-      )}
+      )} */}
       {currentOperation === "edit" && (
         <>
-          {" "}
-          <AdminCategoryEdit /> <Spacer />{" "}
+      
+          <AdminCategoryEdit /> <Spacer />
         </>
       )}
       <Categories />

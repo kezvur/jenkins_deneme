@@ -13,6 +13,11 @@ import { useSelector } from "react-redux";
 
 const AdminAdvertTypesPage = () => {
   const { currentOperation } = useSelector((state) => state.misc);
+  const [data,setData]=useState();
+
+  const getData=(data2)=>{
+   setData(data2);
+  }
     
 
     
@@ -21,8 +26,8 @@ const AdminAdvertTypesPage = () => {
        <Spacer height={40} />  
        
      {currentOperation === "new" && ( <> <AdminAdvertTypeNew /> <Spacer /> </> )}
-      {currentOperation === "edit" && (<> <AdminAdvertTypeEdit  /><Spacer /> </> )}
-      <AdminAdvertTypes  />
+      {currentOperation === "edit" && (<> <AdminAdvertTypeEdit data={data}  /><Spacer /> </> )}
+      <AdminAdvertTypes getData={getData} />
     </Container>
   );
 };

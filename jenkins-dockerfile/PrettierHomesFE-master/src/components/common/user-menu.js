@@ -6,13 +6,13 @@ import "./user-menu.scss";
 
 const UserMenu = () => {
   const { isUserLogin, user } = useSelector((state) => state.auth);
-const isUserLoginLocal = localStorage.getItem("isUserLogin") === "true";
-const userLocal = JSON.parse(localStorage.getItem("user"));
+  // const isUserLoginLocal = localStorage.getItem("isUserLogin") === "true";
+  const userLocal = JSON.parse(localStorage.getItem("user"));
   
   return (
     <>
       <div className="user-menu ">
-        {isUserLoginLocal ? (
+        {isUserLogin ? (
           <Link to="/dashboard">
             <AiOutlineUser /> Hello, {userLocal?.firstName}
             👋

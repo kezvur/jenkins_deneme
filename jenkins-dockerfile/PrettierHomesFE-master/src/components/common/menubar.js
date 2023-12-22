@@ -7,6 +7,7 @@ import UserMenu from "./user-menu";
 
 const Menubar = () => {
   const [mode, setMode] = useState("white");
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
 
   const handleScroll = () => {
     const scrollYPosition = window.scrollY;
@@ -16,6 +17,13 @@ const Menubar = () => {
       setMode("white");
     }
   };
+
+
+  const closeOffcanvas = () => {
+    setShowOffcanvas(false);
+  };
+
+
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -40,11 +48,13 @@ const Menubar = () => {
             alt={config.project.name}
           />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} />
+        <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} onClick={() => setShowOffcanvas(!showOffcanvas)}
+        /> 
         <Navbar.Offcanvas
           id={`offcanvasNavbar-expand-lg`}
           aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
           placement="end"
+          show={showOffcanvas}
         >
           <Offcanvas.Header closeButton>
             <Offcanvas.Title id={`offcanvasNavbarLabel-expand-lg`}>
@@ -57,26 +67,26 @@ const Menubar = () => {
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className="justify-content-center flex-grow-1 pe-3 text-primary">
-              <Nav.Link as={Link} to="/">
+              <Nav.Link as={Link} to="/" onClick={closeOffcanvas} >
                 {" "}
                 Home
               </Nav.Link>
-              <Nav.Link as={Link} to="/properties">
+              <Nav.Link as={Link} to="/properties" onClick={closeOffcanvas}>
                 {" "}
                 Properties
               </Nav.Link>
-              <Nav.Link as={Link} to="/about">
+              <Nav.Link as={Link} to="/about" onClick={closeOffcanvas}>
                 {" "}
                 About
               </Nav.Link>
-              <Nav.Link as={Link} to="/contact">
+              <Nav.Link as={Link} to="/contact" onClick={closeOffcanvas}>
                 {" "}
                 Contact
               </Nav.Link>
             </Nav>
            
 
-           <div className="m-lg-auto my-3">
+           <div className="m-lg-auto my-3" onClick={closeOffcanvas}>
               <UserMenu/>
            </div>
          

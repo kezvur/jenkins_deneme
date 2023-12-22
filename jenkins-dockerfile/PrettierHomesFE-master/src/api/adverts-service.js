@@ -38,8 +38,9 @@ export const getDistricts = async (props) => {
 };
 
 //A01
-export const getAllAdvertsForUsers= async(page, size, sort, type, q,category_id,advert_type_id,price_start,price_end,status)=>{
-  const res= await axios.get(`${BASE_URL}/adverts?page=${page}&size=${size}&sort=${sort}&type=${type}&q=${q}&categoryid=${category_id}&advert_type_id=${advert_type_id}&price_start=${price_start}&price_end=${price_end}&status=${status}`);
+export const getAllAdvertsForUsers= async(page, size, sort, type, q,category_id,advert_type_id,price_start,price_end,status,country,city,district)=>{
+  console.log(page, size, sort, type, q,category_id,advert_type_id,price_start,price_end,status,country,city,district)
+  const res= await axios.get(`${BASE_URL}/adverts?page=${page}&size=${size}&sort=${sort}&type=${type}&q=${q}&categoryid=${category_id}&advert_type_id=${advert_type_id}&price_start=${price_start}&price_end=${price_end}&status=${status}&country=${country}&city=${city}&district=${district}`);
   const data= res.data;
   return data;
 }
@@ -51,3 +52,16 @@ export const getPopularAdvertList = async (props) => {
   const data = res.data;
   return data;
 };
+export const getAdvertsByUser = async (page, size, id) => {
+  const res = await axios.get(`${BASE_URL}/adverts/userAdverts/${id}?page=${page}&size=${size}`, {
+    headers: getAuthHeader(),
+  });
+  const data = res.data;
+  return data;
+};
+
+export const getAdvertDetailBySlug= async(slug)=>{
+  const res= await axios.get(`${BASE_URL}/adverts/${slug}`);
+  const data= res.data;
+  return data;
+}

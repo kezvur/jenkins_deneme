@@ -7,6 +7,7 @@ import Prettier_Homes.converter.CategoryProValuesMapper;
 import Prettier_Homes.data.entity.AdvertsEntity;
 import Prettier_Homes.data.entity.LogsEntity;
 import Prettier_Homes.data.entity.UserEntity;
+import Prettier_Homes.data.enums.EnmAdvertStatus;
 import Prettier_Homes.data.enums.EnmLog;
 import Prettier_Homes.data.repository.*;
 import Prettier_Homes.dto.AdvertsDto;
@@ -74,9 +75,9 @@ public class AdvertServiceImpl implements AdvertsService{
     }
 
     @Override
-    public ResponseEntity<Page<AdvertCartRespons>> getListFilter(int page, int size, String sort, Sort.Direction direction, String search, Long category, Long advert_type, Double price_start, Double price_end, int status) {
+    public ResponseEntity<Page<AdvertCartRespons>> getListFilter(int page, int size, String sort, Sort.Direction direction, String search, Long category, Long advert_type, Double price_start, Double price_end, int status, Long country,Long city,Long district) {
         Pageable pageable = PageRequest.of(page,size, Sort.by(direction,sort));
-        Page<AdvertCartRespons> resultList= repository.getFilterByAdmin(search,category,advert_type,price_start, price_end,pageable);
+        Page<AdvertCartRespons> resultList= repository.getFilterByAdmin(search,category,advert_type,price_start, price_end,country,city,district,pageable);
         return new ResponseEntity<>(resultList, HttpStatus.OK);
     }
 
@@ -85,6 +86,7 @@ public class AdvertServiceImpl implements AdvertsService{
     @Override
     public ResponseEntity<AdvertCreateRequest> create(AdvertCreateRequest dto, JwtUserDetails jwtUserDetails) {
         try{
+            dto.setStatus(EnmAdvertStatus.Pending.name());
             AdvertsEntity entity = mapper.toEntity(dto).setCreateAt();
 
             do {
@@ -93,6 +95,7 @@ public class AdvertServiceImpl implements AdvertsService{
             System.out.println("service   : " +entity.getSlug());
             entity.setUser(new UserEntity().setId(jwtUserDetails.getId()));
             entity.setUpdateAt(LocalDateTime.now());
+
             AdvertCreateRequest result = mapper.toCreateDto(repository.save(entity));
 
             LogsEntity logsEntity =new LogsEntity();
@@ -122,9 +125,9 @@ public class AdvertServiceImpl implements AdvertsService{
     }
 
     @Override
-    public ResponseEntity<Page<AdvertCartRespons>> getFilterByAdmin(int page, int size, String sort, Sort.Direction direction, String search, Long category, Long advert_type, Double price_start, Double price_end, Integer status) {
+    public ResponseEntity<Page<AdvertCartRespons>> getFilterByAdmin(int page, int size, String sort, Sort.Direction direction, String search, Long category, Long advert_type, Double price_start, Double price_end, Integer status, Long country,Long city,Long district) {
         Pageable pageable = PageRequest.of(page,size, Sort.by(direction,sort));
-        Page<AdvertCartRespons> resultList =repository.getFilterByAdmin(search,category,advert_type,price_start, price_end,pageable);
+        Page<AdvertCartRespons> resultList =repository.getFilterByAdmin(search,category,advert_type,price_start, price_end ,country,city,district,pageable);
       //LOGrEPOSITORY.SAVE()
         return new ResponseEntity<>(resultList, HttpStatus.OK);
     }
@@ -170,13 +173,14 @@ public class AdvertServiceImpl implements AdvertsService{
 
     @Override
     public ResponseEntity<AdvertDetailBySlugResponse> getAdvertDetailBySlug(String slug) {
-        AdvertDetailBySlugResponse result=repository.getAdvertDetailBySlug(slug);
-        List<CategoryPropertiesValuesDto> valuesDto= new ArrayList<>();
-        if(result.getAdvert().getId()!=null){
-        valuesDto= valuesMapper.toDto(valueRepository.findByAdvertId(result.getAdvert().getId()));}
-        result.setValues(valuesDto);
-        List<ImagesDto> imagesDtos = imagesService.getImagesList(result.getAdvert().getId()).getBody();
-        result.setImges(imagesDtos);
+        AdvertsDto dto = mapper.toDto(repository.findBySlug(slug).get());
+        if(dto.getId() ==null)  return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        List<ImagesDto> imgDto = imagesService.getImagesByAdvertId(dto.getId()).getBody();
+        List<CategoryPropertiesValuesDto> properties =valuesMapper.toDto(valueRepository.findByAdvertId(dto.getId()));
+        AdvertDetailBySlugResponse result=new AdvertDetailBySlugResponse();
+        result.setAdvert(dto);
+        result.setValues(properties);
+        result.setImges(imgDto);
         //todo burada db den list seklinde img veya imd-url cekilip respons clasa eklenmeli. url gonderebilirsek daha hizli olacak
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
@@ -259,10 +263,16 @@ public class AdvertServiceImpl implements AdvertsService{
     public ResponseEntity<List<AdvertCartRespons>> getPopulerList(Long amount) {
             Pageable pageable = PageRequest.of(0, Math.toIntExact(amount));
             List<AdvertCartRespons> resultList = repository.getPopulerList(pageable);
-        System.out.println(resultList);
             return new ResponseEntity<>(resultList, HttpStatus.OK);
         }
-     }
+
+    @Override
+    public ResponseEntity<Page<AdvertCartRespons>> getAdvertsByUser(Long id, int page, int size, String sort, JwtUserDetails jwtUserDetails) {
+        Pageable pageable = PageRequest.of(page,size,Sort.by(sort));
+        Page<AdvertCartRespons> resultList =repository.getFilterByAuth("",pageable,id);
+        return new ResponseEntity<>(resultList, HttpStatus.OK);
+    }
+}
 
 
 

@@ -3,9 +3,9 @@
 .logs_title {
   position: relative;
   display: inline-block;
-  padding: 10px 20px;
-  margin: 10px;
-  font-size: 1.1rem;
+  padding: 10px 10px;
+  margin: 5px;
+  font-size: 1rem;
   cursor: pointer;
   background-color: transparent;
   border-radius: 2px solid v.$color2;
@@ -16,12 +16,27 @@
     margin: 5px;
   }
 
+    &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 1px);  /*Buton içindeki yazının öncesinde başlayacak*/
+    width: 20px;    /*Çizgiuzunluğu(istediğinizuzunluğuayarlayabilirsiniz)*/
+    border-bottom: 1px solid v.$color2;    /*Çizgiözellikleri*/
+    transform: translateY(-50%);
+    z-index: 0;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+}
+
   &::after {
     content: '';
     position: absolute;
     top: 50%;
     left: calc(100% + 1px); /* Buton içindeki yazının sonrasında başlayacak */
-    width: 1160px; /* Çizgi uzunluğu (istediğiniz uzunluğu ayarlayabilirsiniz) */
+    width: 1080px; /* Çizgi uzunluğu (istediğiniz uzunluğu ayarlayabilirsiniz) */
     border-bottom: 1px solid v.$color2; /* Çizgi özellikleri */
     transform: translateY(-50%);
     z-index: 0;

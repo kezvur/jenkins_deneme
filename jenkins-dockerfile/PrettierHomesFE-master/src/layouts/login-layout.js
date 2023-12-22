@@ -53,11 +53,9 @@ const LoginLayout = () => {
 
   return (
     <div className="login-layout">
-      <Button as={Link} to="/" className="btn-return" variant="secondary">
-    <FcPrevious />
-  </Button>
+    
       <Row>
-     {isVisible &&
+     {!isVisible &&
         <Col  className={`menu  p-5`}>
           <img
             src="/images/logo/logo-white-2.png"
@@ -67,7 +65,10 @@ const LoginLayout = () => {
           <Nav className="flex-column  px-4 py-3 fs-5">
             <Nav.Link
               className="text-dark"
-              onClick={() => handleMenuClick("/dashboard")}
+              onClick={() => {
+                handleMenuClick("/dashboard");
+                handleMenuToggle();
+              }}
             >
               Dashboard
             </Nav.Link>
@@ -76,13 +77,15 @@ const LoginLayout = () => {
               <Nav.Link
                 className="text-dark"
                 key={item.title}
-                onClick={() => handleMenuClick(item.link)}
-              >
+                onClick={() => {
+                  handleMenuClick(item.link);
+                  handleMenuToggle();}}
+             >
                 {item.title}
               </Nav.Link>
             ))}
 
-            <Nav.Link className="text-dark" onClick={handleLogout}>
+            <Nav.Link className="text-dark " onClick={handleLogout}>
               Logout
             </Nav.Link>
           </Nav>

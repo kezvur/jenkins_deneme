@@ -9,6 +9,7 @@ export const login = async (payload) => {
   return data;
 };
 
+
 export const register = async (payload) => {
   const res = await axios.post(`${BASE_URL}/auth/register`, payload);
   const data = res.data;

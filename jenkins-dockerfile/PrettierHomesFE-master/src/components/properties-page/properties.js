@@ -1,44 +1,78 @@
 import React, { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import PropertyForm from "./property-form";
 import PropertyCard from "./property-card";
 import featuredProperties from "../../helpers/data/featured-properties.json";
 import { getAllAdvertsForUsers } from "../../api/adverts-service";
+import { useLocation, useParams } from "react-router-dom";
 
 const Properties = () => {
+  const { state } = useLocation();  
+  const { atype,categoryId, search } = state || {};
   const [data, setData]= useState([]);
   const [page, setpage]= useState(0);
   const [size, setSize]= useState(10);
-  const [sort, setSort]= useState("");
+  const [sort, setSort]= useState('title');
   const [type, setType]= useState("DESC");
-  const [q, setQ]= useState("");
-  const [category, setCategory]= useState(0);
-  const [advertType, setAdvertType]= useState(0);
-  const [priceStart, setpriceStart]= useState(0);
-  const [priceEnd, setpriceEnd]= useState(0);
-  const [status, setStatus]= useState(11);
-
+  const [q, setQ]= useState(search || "");
+  const [category, setCategory]= useState(categoryId || "");
+  const [advertType, setAdvertType]= useState(atype || "");
+  const [priceStart, setpriceStart]= useState('');
+  const [priceEnd, setpriceEnd]= useState('');
+  const [status, setStatus]= useState("");
+  const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
+  const [district, setDistrict] = useState("");
+  const [flag, setFlag]=useState(false);
+  
 const loadData = async ()=>{
+  console.log(page, size,sort, type,q,category,advertType,priceStart,priceEnd,status, country,city,district)
   try{
-    const resp = await getAllAdvertsForUsers(page, size,sort, type,q,category,advertType,priceStart,priceEnd,status);
-    setData(resp.content)
-    console.log(resp.content)
+    const resp = await getAllAdvertsForUsers(page, size,sort, type,q,category,advertType,priceStart,priceEnd,status,country,city,district);
+    //0, 10,"title","DESC",search,category,atype,"","",""
+    setData(resp.content)   
   }catch(error){
-
+console.log(error)
   }
 }
 
 useEffect(() =>{
   loadData();
-}, [])
+}, [flag])
+
+const getFeatures =(type, category, search,country, city,districts,priceMin,priceMax)=>{
+  console.log(type, category, search,country, city,districts,priceMin,priceMax)
+  setDistrict(districts)
+  setpriceEnd(priceMax)
+  setpriceStart(priceMin)
+  setCity(city)
+  setCountry(country)
+  setCategory(category)
+  setAdvertType(type)
+  setQ(search)
+  setFlag(!flag) 
+}
 
 
+const [showPropertyForm, setShowPropertyForm] = useState(false);
+const togglePropertyForm = () => {
+  setShowPropertyForm(!showPropertyForm);
+};
 
   return (
     <Container>
+      <Button className="d-md-none btn btn-success " onClick={togglePropertyForm}>Filter</Button>
+
+      {showPropertyForm && (
+        <Row>
+          <Col md={4} className="d-md-none mb-5">
+            <PropertyForm search={search} type={atype} category={categoryId} getFeatures={getFeatures}/>
+          </Col>
+        </Row>
+      )}
       <Row>
-        <Col md={4}>
-          <PropertyForm />
+        <Col md={4} className="d-none d-md-block">
+          <PropertyForm search={search} type={atype} category={categoryId} getFeatures={getFeatures}/>
         </Col>
         <Col md={8} className="d-flex flex-wrap ">
           

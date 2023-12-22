@@ -41,10 +41,10 @@ public class FavoritesController {
    // @PreAuthorize("h")
     @GetMapping("/admin/{userId}") //bitti K02
     public ResponseEntity<Page<AdvertCartRespons>> getListAdmin(@PathVariable Long userId,
-                                                                @RequestParam(value = "page", defaultValue = "0") int page,
-                                                                @RequestParam(value = "size", defaultValue = "10") int size,
-                                                                @RequestParam(value = "sort", defaultValue = "title") String sort,
-                                                                @RequestParam(value = "direction", defaultValue = "ASC") Sort.Direction direction){
+                                                                @RequestParam(value = "page", defaultValue = "0",required = false) int page,
+                                                                @RequestParam(value = "size", defaultValue = "10",required = false) int size,
+                                                                @RequestParam(value = "sort", defaultValue = "title",required = false) String sort,
+                                                                @RequestParam(value = "direction", defaultValue = "ASC",required = false) Sort.Direction direction){
         System.out.println(userId);
         return service.getListAdmin(userId, page, size, sort, direction);
     }

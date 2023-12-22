@@ -24,7 +24,20 @@
         -moz-border-radius: 0px 15px 15px 15px;
         -ms-border-radius: 0px 15px 15px 15px;
         -o-border-radius: 0px 15px 15px 15px;
+
+
+      
     }
+    .btn-group{
+        border: 1px solid rgb(177, 172, 172) !important;
+        border-top-left-radius: 15px !important;
+        border-top-right-radius: 25px !important;
+        border-radius: 0;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        -ms-border-radius: 0;
+        -o-border-radius: 0;
+}
 
 
     form {
@@ -70,5 +83,12 @@
             
         }
 
+        .searchPopupDiv{
+        background-color: white;
+        }
+
+            .searchPopupLi{
+                // list-style-type: none;
+            }
 
 }

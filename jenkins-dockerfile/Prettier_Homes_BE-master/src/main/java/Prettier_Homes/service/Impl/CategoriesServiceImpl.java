@@ -6,12 +6,14 @@ import Prettier_Homes.data.entity.CategoriesEntity;
 import Prettier_Homes.data.repository.CategoriesRepository;
 import Prettier_Homes.dto.CategoriesDto;
 import Prettier_Homes.service.CategoriesService;
+import Prettier_Homes.service.CategoryPropertiesKeyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,11 +24,15 @@ public class CategoriesServiceImpl implements CategoriesService {
 
     @Autowired
     CategoriesMapper mapper;
+
+    @Autowired
+    CategoryPropertiesKeyService keyService;
     @Override
     public ResponseEntity<CategoriesDto> create(CategoriesDto dto) {
         CategoriesEntity entity=mapper.toEntity(dto);
-        CategoriesDto result =mapper.toDto(repository.save(entity));
-
+        entity.setCreateAt(LocalDateTime.now());
+        CategoriesDto resultDto =mapper.toDto(repository.save(entity));
+        CategoriesDto result= keyService.savePropertiesKeyList(dto, resultDto);
         return new ResponseEntity<>(result,HttpStatus.CREATED);
     }
 

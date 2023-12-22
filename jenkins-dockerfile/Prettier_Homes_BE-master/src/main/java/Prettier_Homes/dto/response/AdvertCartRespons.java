@@ -75,6 +75,7 @@ public class AdvertCartRespons {
         this.countryName=entity.getCountry().getName();
         this.cityName=entity.getCity().getName();
         this.districtName=entity.getDistrict().getName();
+        this.slug=entity.getSlug();
         // diğer alanları doldurun
     }
 
@@ -100,6 +101,7 @@ public class AdvertCartRespons {
         this.viewCount= entity.getViewCount();
         this.categoryName= entity.getCategory().getTitle();
         this.categoryId=entity.getCategory().getId();
+
 
     }
     public AdvertCartRespons(AdvertsEntity entity){
